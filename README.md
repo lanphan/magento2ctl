@@ -8,6 +8,10 @@ Tool to manage and setup Magento2
 + docker
 + docker-compose
 + git
++ Reserved port 8080 for Adminer (can change it in ```.env``` file, ```ADM_PORT```)
++ Reserved port 80/443 for Nginx (can change it in ```.env``` file, ```NGINX_HOST_HTTP_PORT, NGINX_HOST_HTTPS_PORT```)
++ Reserved port 2222 for workspace SSH (can change it in ```.env``` file, ```WORKSPACE_SSH_PORT```)
++ Reserved port 3306 for Mysql (can change it in ```.env``` file, ```MYSQL_PORT_MAGENTO2```)
 
 1. Docker login, so that you can pull customized Docker images from r.cfcr.io
 docker login r.cfcr.io -u lanphan -p e057226d56f1f0170d9e0d02f1acf44c
