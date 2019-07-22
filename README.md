@@ -1,7 +1,33 @@
 Tool to manage and setup Magento2
 =================================
 
-1. How to setup Magento2 environment
+1. Introduction
+------------------------------------
+This project helps to setup Magento2 development environment in Docker containers.
+It'll start 5 services separatedly in 5 containers:
+
+1. nginx
+
+  + Reversed proxy and process http/https requests from clients
+
+2. php-fpm
+
+  + Process to proceed PHP code
+
+3. workspace
+
+  + Container contains all development utilities (composer, php, nodejs, gulp ...)
+
+4. mysql_magento2
+
+  + Database contains data
+
+5. adminer
+
+  + Administer database
+
+
+2. How to setup Magento2 environment
 ------------------------------------
 
 0. Prerequisites
@@ -46,13 +72,15 @@ MAGENTO2
         magento2
 ```
 
-6. Start all services
+6. Modify ```magento2/nginx.conf.sample```, replace ```fastcgi_pass   fastcgi_backend;``` by ```fastcgi_pass   php-upstream;```
+
+7. Start all services
 ```
 cd MAGENTO2/magento2ctl
 docker-compose up -d
 ```
 
-7. Run ```composer install``` for magento2 site
+8. Run ```composer install``` for magento2 site
 ```
 cd MAGENTO2/magento2ctl
 docker-compose exec --user=laradock workspace bash
@@ -64,7 +92,7 @@ cd magento2
 composer install
 ```
 
-8. Setup Magento2 site: open browser http://magento2.local/setup/, follow steps
+9. Setup Magento2 site: open browser http://magento2.local/setup/, follow steps
 
    a. Step to add database, fill in:
 ```
@@ -83,10 +111,10 @@ uncheck Apache Rewrites
 ```
 Complete setup step, done.
 
-9. Verify:
+10. Verify:
   + open browser http://magento2.local/admin to try to log into admin page
 
-2. Use Adminer to interact with database
+3. Use Adminer to interact with database
 ------------------------------------
 Open browser http://localhost:8080
 
@@ -96,3 +124,6 @@ User: magento2
 Pass: secret
 Database: magento2
 ```
+4. Check log files of Nginx
+------------------------------------
+Log files of Nginx stored in ```magento2ctl/logs``` folder, can be changed in ```.env``` file, ```NGINX_HOST_LOG_PATH```
